@@ -17,6 +17,12 @@ class Neighbourhood(models.Model):
     police_contact = models.CharField(max_length=20, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
+    def create_neigbourhood(self):
+        self.save()
+
+    def get_neighbourhoods(self):
+        neighbourhoods = Neighbourhood.objects.all()
+        return neighbourhoods
 
 
 class Profile(models.Model):
@@ -27,13 +33,33 @@ class Profile(models.Model):
     email = models.CharField(max_length=100)
     date_created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
+    def save_profile(self):
+        super().save()
 
 class Business(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    neighbourhood_id = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    description = models.TextField(blank=True)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='Biz_owner')
+    neighbourhood_id = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='Hood')
     biz_email = models.CharField(max_length=100)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
 
+    def __str__(self):
+        return f'{self.name}Business'
+
+    def create_business(self):
+        self.save()
+
+    def delete_business(self):
+        self.delete()
+
+    @classmethod
+    def find_business(cls,business_id):
+        business = cls.objects.get(id = business_id)
+        return business
     """
     methods
     """
@@ -42,5 +68,20 @@ class Business(models.Model):
     # find_business(business_id)
     # update_business()
 
+class Post(models.Model):
+    title = models.CharField(max_length=50, null=True)
+    post = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='Author')
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='Hood_post')
+
+    def __str__(self):
+        return f'{self.title} Post'    
+    
+    def save_post(self):
+        self.save()
+
+    def delete_post(self):
+        self.delete()
 
 
