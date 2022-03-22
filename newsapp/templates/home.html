@@ -1,1 +1,41 @@
-<h1>Catch the neighbourhood news on the go!</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block content %}
+<div class="container-fluid">
+    {% if neighbourhoods %}
+    <div class="row">
+    {% for neighbourhood in neighbourhoods %}
+    <div class="col-md-4">
+        <div class="card" style="margin-bottom: 30px; border-radius: 3px; background-color:rgb(250, 206, 206);">
+            <img src="{{ neighbourhood.neighbourhood_pic.url }}" class="card-img-top" style="border-radius: 3px 3px 0px 0px;" width="300" height="400" object fit="scale-down" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" style="color: olivedrab;">{{ neighbourhood.neighbourhood_name }}</h5>
+                <div class="card-content" style="float:left">
+                    <h6><span  style="font-weight: lighter; font-size: small;">Location: <b>{{ neighbourhood.location }}</b></span></h6>
+                </div>
+                <br>
+                <div class="my-5">
+                    <h6><span>{{ neighbourhood.description|truncatechars:50 }}</span></h6>
+                </div>
+                <br>
+                <hr>
+                <div class="d-flex flex-row">
+                    <div class="d-flex flex-column justify-content-start ml-2">
+                        <a href="#">
+                            <img src="{{ neighbourhood.admin.profile.profile_pic.url }}"
+                            class="rounded-circle img-fluid" width="60" height="50">&nbsp;
+                            <span><b> {{ neighbourhood.admin|title }}</b></span>
+                        </a>
+                        <span class="text-muted" style="font-size: small;">Since: <i class="fas fa-calendar-alt"></i> {{ neighbourhood.date_created }}</span>
+                    </div>
+                    <br>
+                </div> 
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
