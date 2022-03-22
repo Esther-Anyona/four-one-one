@@ -42,10 +42,12 @@ class Profile(models.Model):
 class Business(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(blank=True)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='Biz_owner')
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='Business_owner')
     neighbourhood_id = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='Hood')
-    biz_email = models.CharField(max_length=100)
+    business_email = models.CharField(max_length=100)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
+    date_updated = models.DateTimeField(auto_now_add=True, null=True)
+
 
     def __str__(self):
         return f'{self.name}Business'
@@ -60,6 +62,10 @@ class Business(models.Model):
     def find_business(cls,business_id):
         business = cls.objects.get(id = business_id)
         return business
+
+    def update_business(self, id, name, description, user, neighbourhood_id, biz_email):
+        update = NeighbourHood.objects.filter(id = id).update(name = name , description = description, user=user, neighbourhood_id = neighbourhood_id, biz_email = biz_email)
+        return update
     """
     methods
     """
