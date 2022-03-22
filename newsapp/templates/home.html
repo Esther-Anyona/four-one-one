@@ -7,10 +7,10 @@
     <div class="row">
     {% for neighbourhood in neighbourhoods %}
     <div class="col-md-4">
-        <div class="card" style="margin-bottom: 30px; border-radius: 3px; background-color:rgb(250, 206, 206);">
+        <div class="card" style="margin-bottom: 30px; border-radius: 3px; background-color:rgb(137, 192, 230);">
             <img src="{{ neighbourhood.neighbourhood_pic.url }}" class="card-img-top" style="border-radius: 3px 3px 0px 0px;" width="300" height="400" object fit="scale-down" alt="...">
             <div class="card-body">
-                <h5 class="card-title" style="color: olivedrab;">{{ neighbourhood.neighbourhood_name }}</h5>
+                <h5 class="card-title" style="color: rgb(214, 123, 18); font-weight: bold;font-size: 25px;">{{ neighbourhood.neighbourhood_name }}</h5>
                 <div class="card-content" style="float:left">
                     <h6><span  style="font-weight: lighter; font-size: small;">Location: <b>{{ neighbourhood.location }}</b></span></h6>
                 </div>
