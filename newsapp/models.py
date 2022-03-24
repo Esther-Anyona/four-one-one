@@ -29,6 +29,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     member_id = models.CharField(max_length=10, blank=True)
     profile_pic = CloudinaryField('profile-pic')
+    bio = models.TextField(blank=True)
     neighbourhood_id = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     email = models.CharField(max_length=100)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -45,6 +46,7 @@ class Business(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='Business_owner')
     neighbourhood_id = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='Hood')
     business_email = models.CharField(max_length=100)
+    image = CloudinaryField('business_image', null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     date_updated = models.DateTimeField(auto_now_add=True, null=True)
 

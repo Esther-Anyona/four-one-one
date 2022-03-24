@@ -1,0 +1,6 @@
+body{
+    background-color: aquamarine;
+}
+:any-link{
+    text-decoration: none;
+}

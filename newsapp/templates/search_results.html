@@ -1,0 +1,35 @@
+{% if businesses %}
+            <div class="row">
+                {% for business in businesses %}
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ business.name }}</h5>
+                            <p class="card-text">{{ business.description }}</p>
+                            <div class="d-flex flex-row user-info">
+                                {% if business.user.profile_pic.url %}
+                                    <img class="rounded" src="{{ business.user.profile_pic.url }}" height="40" width="40">
+                                {% else %}
+                                    <h5>No Profile pic</h5>                                
+                                {% endif %}
+                                <div class="d-flex flex-column justify-content-start ml-2">
+                                    <a href="#">
+                                        <span class="name"><b>{{ business.user.user.admin }}</b></span>
+                                    </a>
+                                    <span class="text-muted" style="font-size: small;"><i class="fas fa-calendar-alt"></i> {{ business.date_created }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="col-sm-12" style="margin-top: 20px;">
+                <div class="content text-center">
+                    <br>
+                    <h2 class="text-center py-3">No Businesses Found</h2>
+                    <br>
+                </div> 
+            </div>
+        {% endif %}
